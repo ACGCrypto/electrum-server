@@ -1,6 +1,6 @@
 [server]
 # username for running the daemon
-username =
+username = electrum
 # hostname. set it to a FQDN in order to be reached from outside
 host = localhost
 # ports
@@ -34,7 +34,7 @@ pruning_limit = 100
 
 [bitcoind]
 bitcoind_host = localhost
-bitcoind_port = 8332
+bitcoind_port = 15151
 # user and password from bitcoin.conf (not needed for localhost)
-#bitcoind_user =
-#bitcoind_password =
+bitcoind_user = 8AEPKgkphwafTF6yPxEL0DSySZ4jbl
+bitcoind_password = MuEMjW3kV0vXaaIhYuuLf0W7JDySpV

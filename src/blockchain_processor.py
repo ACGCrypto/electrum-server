@@ -295,7 +295,7 @@ class BlockchainProcessor(Processor):
         try:
             return deserialize.parse_Transaction(vds, is_coinbase=False)
         except:
-            print_log("ERROR: cannot parse", txid)
+            print_log("ERROR: cannot parse mempool tx ", txid)
             return None
 
     def get_unconfirmed_history(self, addr):
@@ -395,7 +395,9 @@ class BlockchainProcessor(Processor):
             try:
                 tx = deserialize.parse_Transaction(vds, is_coinbase)
             except:
-                print_log("ERROR: cannot parse", tx_hash)
+                print_log('-----')
+                print_log(raw_tx)
+                print_log("ERROR: cannot parse block tx ", tx_hash)
                 continue
             tx_hashes.append(tx_hash)
             txdict[tx_hash] = tx

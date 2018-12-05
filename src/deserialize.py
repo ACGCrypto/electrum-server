@@ -213,15 +213,15 @@ def short_hex(bytes):
 def parse_TxIn(vds):
     d = {}
     d['prevout_hash'] = hash_encode(vds.read_bytes(32))
-    d['prevout_n'] = vds.read_uint32()
+    d['prevout_n'] = vds.read_int32()
     scriptSig = vds.read_bytes(vds.read_compact_size())
     d['sequence'] = vds.read_uint32()
     return d
 
-
 def parse_TxOut(vds, i):
     d = {}
     d['value'] = vds.read_int64()
+    d['utxo_id'] = vds.read_int64()
     scriptPubKey = vds.read_bytes(vds.read_compact_size())
     d['address'] = get_address_from_output_script(scriptPubKey)
     d['raw_output_script'] = scriptPubKey.encode('hex')
@@ -233,6 +233,7 @@ def parse_Transaction(vds, is_coinbase):
     d = {}
     start = vds.read_cursor
     d['version'] = vds.read_int32()
+    d['timestamp'] = vds._read_num('<L')
     n_vin = vds.read_compact_size()
     d['inputs'] = []
     for i in xrange(n_vin):
@@ -246,6 +247,7 @@ def parse_Transaction(vds, is_coinbase):
         d['outputs'].append(o)
 
     d['lockTime'] = vds.read_uint32()
+    d['data'] = vds.read_bytes(vds.read_compact_size())
     return d
 
 
